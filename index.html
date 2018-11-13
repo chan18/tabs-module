@@ -323,6 +323,15 @@
                // update the dom inner html with tab + count.
            }
 
+           function mobileView() {
+                if ($(window).width() < 640) {
+                    $('.ellipsis').show();
+                    rearrangeTabsAndNavs();
+                } else {
+                    $('.ellipsis').hide();
+                }
+           }
+
            /*----   ----*/
             function createTabContent(tabCount) {
 
@@ -376,11 +385,11 @@
 
             }
 
-            function createNavItem() {
+            function createNavItem(navCount = null) {
 
-                var navCount = ( $('#myTab').children().length+1 ) + ( $('.sidebar-nav').children().length );
-
-                console.log(navCount);
+                if (navCount == null) {
+                    var navCount = ( $('#myTab').children().length+1 ) + ( $('.sidebar-nav').children().length );
+                }
 
                 createElementWithAttributes('<li></li>',
                                             { id:'nav-'+navCount,},
@@ -407,13 +416,27 @@
 
             }
 
+            function rearrangeTabsAndNavs() {
+                var tabsCount = $('#myTab').children().length;
+
+                if (tabsCount > 5) {
+                    for (i = 5;i <= tabsCount;i++)  {
+                        $('#tab-'+i).hide();
+                        createNavItem(i);
+                    }
+                }
+
+            }
+
            $('.addNewTab').click(function() {
 
                if ($('#myTab').children().length < 15) {  
                     createTab();
                } else {
-                    createNavItem();
+                    createNavItem();                    
                }
+
+               mobileView();
 
            });
 
@@ -452,11 +475,7 @@
             */
             $(window).on("load resize", function() {
 
-                if ($(window).width() < 640) {
-                    $('.ellipsis').show();
-                } else {
-                    $('.ellipsis').hide();
-                }
+                mobileView();
 
             });
 
