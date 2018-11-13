@@ -318,6 +318,7 @@
                             });
            }
 
+
            function updateTabsCount() {
                // getVisibleTabsCount
                // update the dom inner html with tab + count.
@@ -326,7 +327,7 @@
            function mobileView() {
                 if ($(window).width() < 640) {
                     $('.ellipsis').show();
-                    rearrangeTabsAndNavs();
+                    // rearrangeTabsAndNavs();
                 } else {
                     $('.ellipsis').hide();
                 }
@@ -347,6 +348,10 @@
             }
 
             function createTab() {
+
+                $(window).on("load resize", function() {
+                    mobileView();
+                });
 
                 var tabCount = $('#myTab').children().length+1;
 
@@ -421,11 +426,11 @@
 
                 if (tabsCount > 5) {
                     for (i = 5;i <= tabsCount;i++)  {
-                        $('#tab-'+i).hide();
+                        $('#tab-'+i).remove();
                         createNavItem(i);
                     }
                 }
-
+                
             }
 
            $('.addNewTab').click(function() {
@@ -435,8 +440,6 @@
                } else {
                     createNavItem();                    
                }
-
-               mobileView();
 
            });
 
@@ -450,7 +453,6 @@
                 $('#'+tab).tab('show');
                 $('#'+tab).show();
 
-                console.log('toggle tab ...', tab);
             });
 
             $('.ellipsis').hide();
@@ -474,9 +476,7 @@
                 can be configured more as requirement changes for viewport.
             */
             $(window).on("load resize", function() {
-
                 mobileView();
-
             });
 
             $("#menu-toggle").click(function(e) {
