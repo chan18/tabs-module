@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+
+    <title>tab component!</title>
+
+    <style>
+
+       body {
+            overflow-x: hidden;
+        }
+
+        #wrapper {
+            padding-right: 0;
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+        }
+
+        #wrapper.toggled {
+             padding-right: 250px;
+        }
+
+        #sidebar-wrapper {
+            z-index: 1000;
+            position: fixed;
+            right: 250px;
+            width: 0;
+            height: 100%;
+            margin-right: -250px;
+            overflow-y: auto;
+            background: #000;
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+        }
+
+        #wrapper.toggled #sidebar-wrapper {
+            width: 250px;
+        }
+
+        #page-content-wrapper {
+            width: 100%;
+            position: absolute;
+            padding: 15px;
+        }
+
+        #wrapper.toggled #page-content-wrapper {
+            position: absolute;
+            margin-right: -250px;
+        }
+
+        /* Sidebar Styles */
+
+        .sidebar-nav {
+            position: absolute;
+            top: 0;
+            width: 250px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            text-indent: 20px;
+            line-height: 40px;
+        }
+
+        .sidebar-nav li a {
+            display: block;
+            text-decoration: none;
+            color: #999999;
+        }
+
+        .sidebar-nav li a:hover {
+            text-decoration: none;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-nav li a:active, .sidebar-nav li a:focus {
+            text-decoration: none;
+        }
+
+        .sidebar-nav>.sidebar-brand {
+            height: 65px;
+            font-size: 18px;
+            line-height: 60px;
+        }
+
+        .sidebar-nav>.sidebar-brand a {
+             color: #999999;
+        }
+
+        .sidebar-nav>.sidebar-brand a:hover {
+            color: #fff;
+            background: none;
+        }
+
+        @media(min-width:768px) {
+                #wrapper {
+                    padding-right: 0;
+                }
+                #wrapper.toggled {
+                    padding-right: 250px;
+                }
+                #sidebar-wrapper {
+                    width: 0;
+                }
+                #wrapper.toggled #sidebar-wrapper {
+                    width: 250px;
+                }
+                #page-content-wrapper {
+                    padding: 20px;
+                    position: relative;
+                }
+                #wrapper.toggled #page-content-wrapper {
+                    position: relative;
+                    margin-right: 0;
+                }
+        }
+
+    </style>
+
+  </head>
+  <body>
+
+    <button class="addNewTab">add new tab</button>
+
+    <!-- tabs -->
+    <ul class="nav nav-tabs nav-justified tab-content tab-pane" id="myTab" role="tablist">
+
+        <li class="nav-item">
+            <a class="nav-link active" id="tab-1" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                tab - 1 
+                <!-- <span class="close" data-id="tab-1" aria-hidden="true">&times;</span> -->
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="tab-2" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                tab - 2 <span class="close" data-id="tab-2" aria-hidden="true" >&times;</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="tab-3" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+                tab - 3 <span class="close" data-id="tab-3" aria-hidden="true" >&times;</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="tab-4" data-toggle="tab" href="#tab4" role="tab" aria-controls="contact" aria-selected="false">
+                tab - 4 <span class="close" data-id="tab-4" aria-hidden="true" >&times;</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="tab-5" data-toggle="tab" href="#tab5" role="tab" aria-controls="contact" aria-selected="false">
+                tab - 5 <span class="close" data-id="tab-5" aria-hidden="true" >&times;</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <!-- <a  class="nav-link" class="btn sticky-top" data-toggle="collapse" href="#collapseExample" role="button">
+                    <i class='fas fa-ellipsis-h'></i>
+            </a> -->
+            <a class='ellipsis'  href="#menu-toggle" id="menu-toggle">
+                    <i class='fas fa-ellipsis-h'></i>
+            </a>
+            
+        </li>
+
+    </ul>
+
+    <!-- sidebar -->
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-5 col-md-3 collapse m-0 p-0 h-100 bg-dark" id="collapseExample">
+                <ul class="nav flex-column sticky-top">
+                    <li class="nav-item">
+                        <div>
+                            <a  class="nav-link" id="nav-1" href="#">Active
+                                <span class="close" data-id="nav-1" aria-hidden="true" >&times;</span>
+                            </a> 
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="nav-2"  href="#">Link
+                            <span class="close" data-id="nav-2" aria-hidden="true" >&times;</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="nav-3"  href="#">Link
+                            <span class="close" data-id="nav-3" aria-hidden="true" >&times;</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled"  id="nav-4" href="#">Disabled
+                            <span class="close" data-id="nav-4" aria-hidden="true" >&times;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+
+                    <li id="nav-7">
+                        <a href="#">Services
+                            <span class="close" data-id="nav-7" aria-hidden="true" >&times;</span>
+                        </a>
+                    </li>
+
+                    <li id="nav-8">
+                        <a href="#">Contact
+                            <span class="close" data-id="nav-8" aria-hidden="true" >&times;</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <!-- data content -->
+            <div class="tab-content" id="myTabContent">
+
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="tab-1">
+        
+                    content ...... tab 1
+
+                    <div class="jumbotron">
+                            <h1 class="display-4">Hello, world!</h1>
+                            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                            <hr class="my-4">
+                            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                            <a class="btn btn-primary btn-lg"  href="#" role="button">Learn more</a>
+
+                            <a href="#" data-id="tab-3" class="toggleTab"> tab - 3</a>
+                            
+                    </div>
+        
+                </div>
+
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="tab-2">
+                    
+                    content .... tab 2
+
+                    <div class="jumbotron">
+                            <h1 class="display-4">asdfasdfa</h1>
+                            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                            <hr class="my-4">
+                            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                    </div>
+        
+                </div>
+
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="tab-3">
+                    
+                    content .... tab 3
+
+                    <div class="jumbotron">
+                            <h1 class="display-4">Hello, world!. asfla;ldfj asdfasf</h1>
+                            
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                    </div>
+                
+                </div>
+
+                <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab-4">
+                    content .... tab 4 
+                </div>
+
+                <div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="tab-5">
+                    content .... tab 5
+                </div>
+
+            </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script>
+
+        $('document').ready(function() {
+
+            /*----- helper functions  ------*/
+           function createElementWithAttributes(element,attributes,parent) {
+               return $(element,attributes).appendTo(parent)
+           }
+
+           function getVisibleTabsCount() {
+             var tabCount = $('#myTab').children().each((index,value) => {
+                                    console.log($(this).attr("style"));
+                            });
+           }
+
+           function updateTabsCount() {
+               // getVisibleTabsCount
+               // update the dom inner html with tab + count.
+           }
+
+           /*----   ----*/
+            function createTabContent(tabCount) {
+
+                createElementWithAttributes('<div></div>',
+                                            {class:'tab-pane fade',
+                                            id:'tab'+tabCount,
+                                            role: 'tabpanel',
+                                            text: 'tab ... '+tabCount,
+                                            'aria-labelledby': 'tab'+tabCount},
+                                            '#myTabContent'
+                                            ).tab('show').show();
+
+            }
+
+            function createTab() {
+
+                var tabCount = $('#myTab').children().length+1;
+
+                createElementWithAttributes('<li></li>',
+                                            {class:'nav-item', id:'nav-tab-'+tabCount},
+                                            '#myTab'
+                                            );
+
+                createElementWithAttributes('<a></a>',
+                                            {class:'nav-link',
+                                            text:'tab-'+tabCount,
+                                            id:'tab-'+tabCount,
+                                            'data-toggle':'tab',
+                                            'href':'#tab'+tabCount,
+                                            'role':'tab',
+                                            'aria-controls':'tab-'+tabCount,
+                                            'aria-selected': 'true',},
+                                            '#nav-tab-'+tabCount
+                                            );
+
+                createElementWithAttributes('<span></span>',
+                                            {class: 'close',
+                                            'data-id': 'tab-'+tabCount,
+                                            'aria-hidden': 'true',
+                                            text: 'x',},
+                                            '#tab-'+tabCount
+                                            ).click(function() {
+                                                var tab = $(this).attr('data-id');
+                                                $('#'+tab).hide();
+
+                                                $('#tab-1').tab('show');
+                                                $('#tab-1').show();
+                                            });
+
+                createTabContent(tabCount);
+
+            }
+
+            function createNavItem() {
+
+                //                 <ul class="sidebar-nav">
+
+                //                 <li id="nav-7">
+                //                     <a href="#">Services
+                //                         <span class="close" data-id="nav-7" aria-hidden="true" >&times;</span>
+                //                     </a>
+                //                 </li>
+
+                // createElementWithAttributes('<li></li>',
+                //                             {class:'nav-item', id:'nav-tab-'+tabCount},
+                //                             '.sidebar-nav'
+                //                             );
+
+            }
+
+           $('.addNewTab').click(function() {
+
+               console.log('creating tab');
+
+               if ($('#myTab').children().length < 15) {    
+                    createTab();
+               } else {
+                   createNavItem();
+               }
+
+           });
+
+            /*
+                can be used to toggle any sort of tab. 
+                note:- add toggleTab class to your attribute with data-id and some magic.
+            */
+            $('.toggleTab').click(function() {
+
+                var tab = $(this).attr('data-id');
+                $('#'+tab).tab('show');
+                $('#'+tab).show();
+
+                console.log('toggle tab ...', tab);
+            });
+
+            $('.ellipsis').hide();
+
+            $('a[data-toggle="tab"]').on('hide.bs.tab', function (e) {
+                console.log('newly activated tab', e.target);
+                console.log('previous active tab', e.relatedTarget)
+            });
+
+            $('.close').click(function() {
+                console.log('closing navs');
+                var tab = $(this).attr('data-id');
+                $('#'+tab).hide();
+
+                $('#tab-1').tab('show');
+                $('#tab-1').show();
+            });
+
+            /*
+                toggle ellipsis based on the viewport. galaxy s5 is 640.
+                can be configured more as requirement changes for viewport.
+            */
+            $(window).on("load resize", function() {
+
+                if ($(window).width() < 640) {
+                    $('.ellipsis').show();
+                } else {
+                    $('.ellipsis').hide();
+                }
+
+            });
+
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+
+        });
+
+    </script>
+
+  </body>
+</html>
