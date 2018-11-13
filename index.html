@@ -378,24 +378,35 @@
 
             function createNavItem() {
 
-                //                 <ul class="sidebar-nav">
+                var navCount = ( $('#myTab').children().length+1 ) + ( $('#sidebar-wrapper').children().length );
 
-                //                 <li id="nav-7">
-                //                     <a href="#">Services
-                //                         <span class="close" data-id="nav-7" aria-hidden="true" >&times;</span>
-                //                     </a>
-                //                 </li>
+                console.log(navCount);
 
-                // createElementWithAttributes('<li></li>',
-                //                             {class:'nav-item', id:'nav-tab-'+tabCount},
-                //                             '.sidebar-nav'
-                //                             );
+                createElementWithAttributes('<li></li>',
+                                            { id:'nav-'+navCount,},
+                                            '.sidebar-nav');
+                
+                createElementWithAttributes('<a></a>',
+                                            { href:'#nav-a'+navCount,},
+                                            '#nav-'+navCount);
+                
+                // createElementWithAttributes('<a></a>',{
+                //                               href:'#',
+                //                               class: 'close',
+                //                               'data-id':'nav-'+navCount,
+                //                               'aria-hidden': 'true',
+                //                             },'nav-a'+navCount
+                //                             ).click(function() {
+                //                                 var tab = $(this).attr('data-id');
+                //                                 $('#'+tab).hide();
+
+                //                                 $('#tab-1').tab('show');
+                //                                 $('#tab-1').show();
+                //                             });
 
             }
 
            $('.addNewTab').click(function() {
-
-               console.log('creating tab');
 
                if ($('#myTab').children().length < 15) {    
                     createTab();
