@@ -2,7 +2,7 @@
 # tabs component :sweat_drops:
 
 * build with bootstrap tabs and jquery :clap:, 
-* This was build in 1-2 hr projece :white_check_mark:, 
+* This was build in 1-2 hr project :white_check_mark:, 
 * All the bad is me :red_circle:, This was a prototype to test the ui/ux of tabs component concept :no_entry:.
 
 
